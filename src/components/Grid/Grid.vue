@@ -25,7 +25,7 @@ export default {
   },
   mounted () {
     console.log('Store: ');
-    console.log(this.$store.state.game);
+    console.log(this.$store);
   },
   methods: {
     register: function(row, col) {

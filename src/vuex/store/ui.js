@@ -1,26 +1,10 @@
 // State Object
 // ------------------------------------------
 const state = {
-  // current phase: 1 - Player, 2 - Enemy, 3 - Ally
-  phase: null,
-  // what turn is user on
-  turn: 0,
-  // hovered character under selector
-  hovered: null,
-  // active character (selected)
-  active: null,
-  // list of possible moves based on character movement stat
-  moveList: [],
-  // list of attackable characters in move area
-  attackList: [],
-  // Hud object
-  hud: {},
   // Hud state
   hudActive: false,
-  // Tile Dash Object
-  dash: {},
   // Tile Stats state
-  dashActive: false,
+  tileStatsActive: false,
   // Move History
   moveHistory: []
 }
@@ -42,6 +26,12 @@ const state = {
 //   }
 // })
 
+const getters = {
+  isValid: function(state, arg) {
+    return arg.col !== undefined && arg.row !== undefined && arg.prop !== undefined && arg.val !== undefined && state.map[arg.row] !== undefined && state.map[arg.row][arg.col] !== undefined;
+  }
+}
+
 // Mutations
 // http://vuex.vuejs.org/en/mutations.html
 // ------------------------------------------
@@ -62,6 +52,17 @@ const state = {
 // })
 
 const mutations = {
+  SET_MAP(state, arg) {
+    state.map = arg;
+  },
+  REGISTER(state, arg) {
+    if(getters.isValid(state, arg)) {
+      state.map[arg.row][arg.col][arg.prop] = arg.val;
+    }
+  },
+  SET_CHARACTERS(state, arg) {
+    state.characters = arg;
+  },
   BEGIN_PLAYER_PHASE(state) {
     state.turn = 1;
   },
@@ -107,6 +108,15 @@ const mutations = {
 // })
 
 const actions = {
+  setMap(ctx, arg) {
+    ctx.commit('SET_MAP', arg);
+  },
+  register(ctx, arg) {
+    ctx.commit('REGISTER', arg);
+  },
+  setCharacters(ctx, arg) {
+    ctx.commit('SET_CHARACTERS', arg);
+  },
   beginPlayerPhase(ctx) {
     ctx.commit('BEGIN_PLAYER_PHASE');
   },
@@ -133,4 +143,4 @@ const actions = {
   }
 }
 
-export default { state, mutations, actions };
+export default { state, getters, mutations, actions };

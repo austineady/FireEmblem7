@@ -19,14 +19,6 @@ export default {
     var scaleRatio = window.innerWidth <= 500 ? window.innerWidth / el.clientWidth : 500 / el.clientWidth;
     console.log(scaleRatio);
     el.style.transform = 'scale(' + scaleRatio + ')';
-    console.log(document.querySelectorAll('#app'));
-    el.focus();
-  },
-  methods: {
-    moveUp: function(e) {
-      console.log('Move Up');
-      console.log(e);
-    }
   }
 }
 </script>
