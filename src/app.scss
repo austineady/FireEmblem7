@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  width: 240px;
+  height: 160px;
+  position: relative;
+  transform-origin: 0 0;
+}
+
+#map0 {
+  background-image: url('./assets/images/background/bg-map-1.png');
+  image-rendering: -moz-crisp-edges;         /* Firefox */
+   image-rendering:   -o-crisp-edges;         /* Opera */
+   image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+   image-rendering: crisp-edges;
+   -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
+   position: absolute;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-position: 0 0;
+   background-repeat: no-repeat;
+}
+
+#grid {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+}
