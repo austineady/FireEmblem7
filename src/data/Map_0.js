@@ -80,7 +80,8 @@ function Map() {
       var baseTile = {
         tid: index + ',' + col,
         ter: col,
-        char: null
+        char: null,
+        selected: false
       };
       newRow.push(baseTile);
       return;
@@ -99,5 +100,18 @@ function Map() {
 }
 
 var map = new Map();
-
-export default map;
+var characters = [
+  {
+    name: 'Lyn',
+    id: 1,
+    row: 8,
+    col: 13
+  },
+  {
+    name: 'Bandit',
+    id: 2,
+    row: 2,
+    col: 3
+  }
+];
+export { map, characters };

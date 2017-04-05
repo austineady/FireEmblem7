@@ -1,9 +1,11 @@
 <template src="./template.html"></template>
 
 <script>
-import map from '../../data/Map_0.js'
-import tile from '../Tile/Tile'
-import lyn from '../Lyn/Lyn.js'
+import { mapActions } from 'vuex';
+
+import { map, characters } from '../../data/Map_0.js';
+import tile from '../Tile/Tile';
+import lyn from '../Lyn/Lyn.js';
 
 export default {
   name: 'grid',
@@ -18,8 +20,12 @@ export default {
   components: {
     'Tile': tile
   },
+  created() {
+    this.setMap(map);
+  },
   mounted () {
-    console.log(document.getElementById('grid'));
+    console.log('Store: ');
+    console.log(this.$store.state.game);
   },
   methods: {
     register: function(row, col) {
@@ -27,7 +33,10 @@ export default {
       console.log(row);
       console.log('Col');
       console.log(col);
-    }
+    },
+    ...mapActions([
+      'setMap'
+    ])
   }
 }
 </script>

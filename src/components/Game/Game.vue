@@ -16,14 +16,6 @@ export default {
   components: {
     'Grid': Grid,
     'Selector': Selector
-  },
-  methods: {
-    register: function(row, col) {
-      console.log('Row');
-      console.log(row);
-      console.log('Col');
-      console.log(col);
-    }
   }
 }
 </script>
