@@ -23,11 +23,16 @@ export default new Vuex.Store({
   mutations: {
     // main move mutation
     MOVE(state, arg) {
+      state.map[state.coords[0]][state.coords[1]].selected = false;
+      state.map[arg[0]][arg[1]].selected = true;
       state.coords = arg;
+      state.activeTile = state.coords.slice(0);
     },
-    // set what tile is currently selected
-    SET_ACTIVE_TILE(state, arg) {
-      state.activeTile = arg;
+    MOVE_CHAR(state) {
+      state.map[state.activeChar.row][state.activeChar.col].char = null;
+      state.map[state.coords[0]][state.coords[1]].char = state.activeChar;
+      state.activeChar.row = state.coords[0];
+      state.activeChar.col = state.coords[1];
     },
     // set character in selected tile
     SET_SELECTED_CHAR(state, arg) {

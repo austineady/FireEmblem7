@@ -11,6 +11,7 @@
     v-bind:col="index"
     v-bind:movetile="col.moveTile"
     v-bind:atktile="col.atkTile"
+    v-bind:selected="index === selected[1] && idx === selected[0] ? true : false"
     ></Tile>
   </tr>
 </table>

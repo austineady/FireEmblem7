@@ -15,6 +15,7 @@ export default {
       totalCols: 15
     }
   },
+  props: ['selected'],
   components: {
     'Tile': tile
   },

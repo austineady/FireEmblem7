@@ -38,7 +38,14 @@ export default {
             ctx.commit('SET_ATK_TILE', tile);
           }
         })
-      } else if(ctx.state.activeChar !== null) {
+      } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null) {
+        // character position move
+        if(ctx.state.activeTile.moveTile === true) {
+          ctx.commit('MOVE_CHAR');
+          // Set character as active
+          ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
+        }
+      } else if(ctx.state.selectedChar !== null && ctx.state.activeChar !== null) {
         // remove move map and active char
         ctx.state.moveMap[0].forEach(function(tile) {
           ctx.commit('RESET_TILE', tile);
@@ -49,9 +56,6 @@ export default {
         ctx.commit('RESET_ACTIVE_CHAR');
       }
     }
-  },
-  setActiveTile(ctx, tile) {
-    ctx.commit('SET_ACTIVE_TILE', tile);
   },
   setSelectedChar(ctx, tile) {
     ctx.commit('SET_SELECTED_CHAR', tile.char);

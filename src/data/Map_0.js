@@ -92,7 +92,8 @@ function Map() {
         ter: Terrain['t' + col],
         char: null,
         moveTile: false,
-        atkTile: false
+        atkTile: false,
+        selected: false
       };
       newRow.push(baseTile);
       return;

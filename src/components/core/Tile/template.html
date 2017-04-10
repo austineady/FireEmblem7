@@ -1,3 +1,4 @@
 <td :class="{ movetile: movetile, atktile: atktile }">
   <Character :class="char.class" v-if="char"></Character>
+  <Selector v-if="selected"></Selector>
 </td>
