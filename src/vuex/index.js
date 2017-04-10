@@ -41,12 +41,15 @@ export default new Vuex.Store({
     SET_ACTIVE_CHAR(state, arg) {
       state.activeChar = arg;
     },
+    // reset active character
     RESET_ACTIVE_CHAR(state) {
       state.activeChar = null;
     },
+    // set move map
     SET_MOVE_MAP(state, arg) {
       state.moveMap = arg;
     },
+    // set base map
     SET_MAP(state, arg) {
       state.map = arg;
     },

@@ -1,4 +1,4 @@
-# vue-test
+# Fire Emblem 7 Clone
 
 > A Vue.js project
 
