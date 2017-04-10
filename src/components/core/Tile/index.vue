@@ -1,5 +1,3 @@
-<template src="./template.html"></template>
-
 <script>
 import Character from '@/components/core/Character';
 import Selector from '@/components/core/Selector';
@@ -14,5 +12,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" src="./style.scss"></style>
+<template>
+  <td :class="{ movetile: movetile, atktile: atktile }">
+    <Character :class="char.class" v-if="char"></Character>
+    <Selector v-if="selected"></Selector>
+  </td>
+</template>

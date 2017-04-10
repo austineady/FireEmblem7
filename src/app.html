@@ -1,4 +1,9 @@
 <div id="app">
   <div id="map0"></div>
-  <router-view></router-view>
+  <router-view
+  v-bind:char="char"
+  v-bind:selected="selected"
+  v-bind:tile="tile"
+  v-bind:map="map"
+  ></router-view>
 </div>

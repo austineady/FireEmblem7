@@ -1,4 +1,5 @@
 import tools from '@/tools/tools.js';
+import handleSpacebar from './events/spacebar.js';
 
 export default {
   handleMove(ctx, e) {
@@ -21,41 +22,11 @@ export default {
       ctx.commit('MOVE', newCoords);
     } else if(e.keyCode === 32) {
       // spacebar
-      if(ctx.state.selectedChar !== null && ctx.state.activeChar === null) {
-        // Set character as active
-        ctx.commit('SET_ACTIVE_CHAR', ctx.state.selectedChar);
-        // Get character move map
-        var moveMap = tools.calculateMove(ctx.state.coords, ctx.state.map);
-        ctx.commit('SET_MOVE_MAP', moveMap);
-        // Register map
-        moveMap[0].forEach(function(tile) {
-          if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-            ctx.commit('SET_MOVE_TILE', tile);
-          }
-        })
-        moveMap[1].forEach(function(tile) {
-          if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-            ctx.commit('SET_ATK_TILE', tile);
-          }
-        })
-      } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null) {
-        // character position move
-        if(ctx.state.activeTile.moveTile === true) {
-          ctx.commit('MOVE_CHAR');
-          // Set character as active
-          ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
-        }
-      } else if(ctx.state.selectedChar !== null && ctx.state.activeChar !== null) {
-        // remove move map and active char
-        ctx.state.moveMap[0].forEach(function(tile) {
-          ctx.commit('RESET_TILE', tile);
-        })
-        ctx.state.moveMap[1].forEach(function(tile) {
-          ctx.commit('RESET_TILE', tile);
-        })
-        ctx.commit('RESET_ACTIVE_CHAR');
-      }
+      handleSpacebar(ctx);
     }
+  },
+  setActiveTile(ctx, tile) {
+    ctx.commit('SET_ACTIVE_TILE', tile);
   },
   setSelectedChar(ctx, tile) {
     ctx.commit('SET_SELECTED_CHAR', tile.char);
@@ -68,71 +39,5 @@ export default {
   },
   resetActiveChar(ctx, tile) {
     ctx.commit('RESET_ACTIVE_CHAR');
-  },
-  setMap(ctx, arg) {
-    ctx.commit('SET_MAP', arg);
-  },
-  registerCharacter(ctx, character) {
-    if(this.getters.isValid(character)) {
-      ctx.commit('REGISTER', {
-        row: character.row,
-        col: character.col,
-        prop: 'char',
-        val: character
-      });
-    }
-  },
-  unregisterCharacter(ctx, character) {
-    if(this.getters.isValid(character)) {
-      ctx.commit('UNREGISTER', {
-        row: character.row,
-        col: character.col,
-        prop: 'char',
-        val: null
-      })
-    }
-  },
-  registerMoveTile(ctx, tile) {
-    if(this.getters.isValid(tile)) {
-      ctx.commit('REGISTER', {
-        row: tile.row,
-        col: tile.col,
-        prop: 'moveTile',
-        val: true
-      })
-    }
-  },
-  unregisterMoveTile(ctx, tile) {
-    if(this.getters.isValid(tile)) {
-      ctx.commit('UNREGISTER', {
-        row: tile.row,
-        col: tile.col,
-        prop: 'moveTile',
-        val: false
-      })
-    }
-  },
-  registerAtkTile(ctx, tile) {
-    if(this.getters.isValid(tile)) {
-      ctx.commit('REGISTER', {
-        row: tile.row,
-        col: tile.col,
-        prop: 'atkTile',
-        val: true
-      })
-    }
-  },
-  unregisterAtkTile(ctx, tile) {
-    if(this.getters.isValid(tile)) {
-      ctx.commit('UNREGISTER', {
-        row: tile.row,
-        col: tile.col,
-        prop: 'atkTile',
-        val: false
-      })
-    }
-  },
-  setCharacters(ctx, arg) {
-    ctx.commit('SET_CHARACTERS', arg);
   }
 }

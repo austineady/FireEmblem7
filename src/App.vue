@@ -1,8 +1,6 @@
 <template src="./app.html"></template>
 
 <script>
-import selector from './components/core/Selector'
-
 export default {
   name: 'app',
   data: function() {
@@ -11,8 +9,19 @@ export default {
       ppc: 0
     }
   },
-  components: {
-    'selector': selector
+  computed: {
+    char: function() {
+      return this.$store.state.selectedChar;
+    },
+    selected: function() {
+      return this.$store.state.coords;
+    },
+    tile: function() {
+      return this.$store.state.activeTile;
+    },
+    map: function() {
+      return this.$store.state.map;
+    }
   },
   mounted: function() {
     var el = document.getElementById('app');

@@ -23,6 +23,7 @@ a {
   margin: 0;
   padding: 0;
   height: 100%;
+  position: relative;
 }
 
 .row {
@@ -40,4 +41,30 @@ a {
   left: 0;
   right: 0;
   top: auto;
+}
+
+.movetile {
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(92, 165, 225, .6);
+  }
+}
+
+.atktile {
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(244, 67, 55, .6);
+  }
 }

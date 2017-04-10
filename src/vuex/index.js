@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import tools from '@/tools/tools.js';
-
+import Map from './static/Map.js';
 import game from './store/game';
 import actions from './actions.js';
 // import map from './store/map';
@@ -12,21 +12,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     activeChar: null,
-    selectedChar: null,
-    activeTile: null,
+    selectedChar: Map[8][13].char,
+    activeTile: Map[8][13],
     coords: [8, 13],
     moveList: [],
-    map: [],
-    moveMap: [],
-    atkMap: []
+    map: Map,
+    moveMap: []
   },
   mutations: {
     // main move mutation
     MOVE(state, arg) {
-      state.map[state.coords[0]][state.coords[1]].selected = false;
-      state.map[arg[0]][arg[1]].selected = true;
+      var oldTile = state.map[state.coords[0]][state.coords[1]];
+      var newTile = state.map[arg[0]][arg[1]];
+      oldTile.selected = false;
+      newTile.selected = true;
       state.coords = arg;
-      state.activeTile = state.coords.slice(0);
+      state.selectedChar = newTile.char !== null && state.activeChar === null ? newTile.char : null;
+      state.activeTile = newTile;
     },
     MOVE_CHAR(state) {
       state.map[state.activeChar.row][state.activeChar.col].char = null;
@@ -35,28 +37,27 @@ export default new Vuex.Store({
       state.activeChar.col = state.coords[1];
     },
     // set character in selected tile
-    SET_SELECTED_CHAR(state, arg) {
-      state.selectedChar = arg;
+    SET_SELECTED_CHAR(state, char) {
+      state.selectedChar = char;
     },
     // reset selected character
     RESET_SELECTED_CHAR(state) {
       state.selectedChar = null;
     },
     // set an active character (spacebar pressed)
-    SET_ACTIVE_CHAR(state, arg) {
-      state.activeChar = arg;
+    SET_ACTIVE_CHAR(state, char) {
+      state.activeChar = char;
     },
     // reset active character
     RESET_ACTIVE_CHAR(state) {
       state.activeChar = null;
     },
-    // set move map
-    SET_MOVE_MAP(state, arg) {
-      state.moveMap = arg;
+    SET_ACTIVE_TILE(state, tile) {
+      state.activeTile = tile;
     },
-    // set base map
-    SET_MAP(state, arg) {
-      state.map = arg;
+    // set move map
+    SET_MOVE_MAP(state, map) {
+      state.moveMap = map;
     },
     SET_MOVE_TILE(state, tile) {
       state.map[tile[1]][tile[0]].moveTile = true;
@@ -67,15 +68,6 @@ export default new Vuex.Store({
     RESET_TILE(state, tile) {
       state.map[tile[1]][tile[0]].moveTile = false;
       state.map[tile[1]][tile[0]].atkTile = false;
-    },
-    REGISTER(state, arg) {
-      state.map[arg.row][arg.col][arg.prop] = arg.val;
-    },
-    UNREGISTER(state, arg) {
-      state.map[arg.row][arg.col][arg.prop] = arg.val;
-    },
-    SET_CHARACTERS(state, arg) {
-      state.characters = arg;
     }
   },
   getters: {

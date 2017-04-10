@@ -1,44 +1,38 @@
-<template src="./template.html"></template>
+<template>
+  <table id="grid">
+    <tr class="row" v-for="(row, idx) in map">
+      <Tile
+      class="col"
+      v-for="(col, index) in row"
+      v-bind:id="col.tid"
+      v-bind:ter="col.ter"
+      v-bind:key="col.tid"
+      v-bind:char="col.char"
+      v-bind:row="idx"
+      v-bind:col="index"
+      v-bind:movetile="col.moveTile"
+      v-bind:atktile="col.atkTile"
+      v-bind:selected="index === selected[1] && idx === selected[0] ? true : false"
+      ></Tile>
+    </tr>
+  </table>
+</template>
 
 <script>
-import { mapActions } from 'vuex';
-
-import { map, characters } from '@/data/Map_0.js';
 import tile from '@/components/core/Tile';
 
 export default {
   name: 'grid',
-  data () {
-    return {
-      map: map,
-      totalRows: 10,
-      totalCols: 15
-    }
-  },
-  props: ['selected'],
-  components: {
-    'Tile': tile
-  },
-  created() {
-    this.setMap(map);
-  },
+  props: ['selected', 'map'],
   mounted () {
     console.log('Store: ');
     console.log(this.$store);
   },
-  methods: {
-    register: function(row, col) {
-      console.log('Row');
-      console.log(row);
-      console.log('Col');
-      console.log(col);
-    },
-    ...mapActions([
-      'setMap'
-    ])
+  components: {
+    'Tile': tile
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" src="./style.scss"></style>
+<style lang="scss"></style>

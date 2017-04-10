@@ -14,17 +14,7 @@ export default {
       grid: Grid
     }
   },
-  computed: {
-    char: function() {
-      return this.$store.state.selectedChar;
-    },
-    selected: function() {
-      return this.$store.state.coords;
-    },
-    tile: function() {
-      return this.$store.state.activeTile;
-    }
-  },
+  props: ['char', 'selected', 'tile', 'map'],
   mounted: function() {
     var self = this;
     document.addEventListener('keydown', function(e) {
@@ -33,21 +23,6 @@ export default {
         keyCode: e.keyCode
       });
     });
-    this.handleUpdate(this.$el, this.selected);
-  },
-  watch: {
-    selected: function(selected) {
-      this.handleUpdate(this.$el, selected);
-    }
-  },
-  methods: {
-    handleUpdate: function(el, tile) {
-      if(tile.char !== null && this.$store.state.activeChar === null) {
-        this.$store.dispatch('setSelectedChar', tile);
-      } else if(tile.char === null && this.$store.state.activeChar !== null) {
-        this.$store.dispatch('resetSelectedChar');
-      }
-    }
   },
   components: {
     'Grid': Grid,

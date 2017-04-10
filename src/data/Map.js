@@ -115,26 +115,4 @@ function Map() {
 
 var map = new Map();
 console.log(map);
-var characters = [
-  {
-    class: 'lyn',
-    mugshot: 'lyn-mugshot',
-    id: 1,
-    row: 8,
-    col: 13,
-    bgp: '-352px -348px',
-    displayName: 'Lyn',
-    maxHealth: 21
-  },
-  {
-    class: 'bandit',
-    mugshot: 'bandit-mugshot',
-    id: 2,
-    row: 2,
-    col: 3,
-    bgp: '-608px -2028px',
-    displayName: 'Bandit',
-    maxHealth: 21
-  }
-];
-export { map, characters };
+export default map;
