@@ -1,0 +1,91 @@
+#hud {
+  width: 100px;
+  height: 32px;
+  background-color: rgba(168, 162, 245, .7);
+  border: 1px solid lighten(rgba(168, 162, 245, .7), 15%);
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, .2);
+  clear: both;
+  overflow: hidden;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 200;
+  border-radius: 2px;
+}
+
+#hud-mugshot {
+  background-image: url('../../../assets/images/mugshots/mugshot-conversation-map-clean.png');
+  height: 32px;
+  width: 32px;
+  background-repeat: no-repeat;
+  float: left;
+  vertical-align: top;
+}
+
+#hud-info {
+  width: 68px;
+  float: left;
+  vertical-align: top;
+}
+
+.hud-name {
+  font-size: 10px;
+  color: white;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  text-shadow:
+   -.3px -.3px 0 #000,
+    .3px -.3px 0 #000,
+    -.3px .3px 0 #000,
+     .3px .3px 0 #000;
+}
+
+.hud-hp-wrap {
+  padding: 0;
+  margin: 0;
+}
+
+.hud-hp-label {
+  line-height: 1;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  text-shadow:
+   -.3px -.3px 0 #000,
+    .3px -.3px 0 #000,
+    -.3px .3px 0 #000,
+     .3px .3px 0 #000;
+}
+
+.hud-hp-number {
+  line-height: 1;
+  font-size: 9px;
+  font-weight: 500;
+  color: #000;
+}
+
+.hud-health-bar {
+  width: 54px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(153, 135, 61, 1.00);
+  overflow: hidden;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.hud-health {
+  background-color: rgba(225, 204, 104, 1.00);
+  position: relative;
+  z-index: 201;
+  height: 4px;
+}
+
+.lyn-mugshot {
+  background-position: -352px -348px;
+}
+
+.bandit-mugshot {
+  background-position: -608px -2028px;
+}

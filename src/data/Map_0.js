@@ -32,6 +32,8 @@
 // 1.13 Thicket
 // 1.14 Wall
 // 0.1 Cliff
+import Terrain from './terrain.js';
+
 function Map() {
   var newMap = [];
   var data = {
@@ -60,16 +62,24 @@ function Map() {
     ],
     characters: [
       {
-        name: 'Lyn',
+        class: 'lyn',
+        mugshot: 'lyn-mugshot',
         id: 1,
         row: 8,
-        col: 13
+        col: 13,
+        bgp: '-352px -348px',
+        displayName: 'Lyn',
+        maxHealth: 21
       },
       {
-        name: 'Bandit',
+        class: 'bandit',
+        mugshot: 'bandit-mugshot',
         id: 2,
         row: 2,
-        col: 3
+        col: 3,
+        bgp: '-608px -2028px',
+        displayName: 'Bandit',
+        maxHealth: 21
       }
     ]
   };
@@ -78,10 +88,11 @@ function Map() {
     var newRow = [];
     row.forEach(function(col, idx) {
       var baseTile = {
-        tid: index + ',' + col,
-        ter: col,
+        tid: index + ',' + idx,
+        ter: Terrain['t' + col],
         char: null,
-        selected: false
+        moveTile: false,
+        atkTile: false
       };
       newRow.push(baseTile);
       return;
@@ -92,6 +103,8 @@ function Map() {
 
   if(data.characters.length > 0) {
     data.characters.forEach(function(char) {
+      char.health = char.maxHealth;
+      char.healthDiff = (char.health / char.maxHealth) * 100 + '%';
       newMap[char.row][char.col].char = char;
     })
   }
@@ -100,18 +113,27 @@ function Map() {
 }
 
 var map = new Map();
+console.log(map);
 var characters = [
   {
-    name: 'Lyn',
+    class: 'lyn',
+    mugshot: 'lyn-mugshot',
     id: 1,
     row: 8,
-    col: 13
+    col: 13,
+    bgp: '-352px -348px',
+    displayName: 'Lyn',
+    maxHealth: 21
   },
   {
-    name: 'Bandit',
+    class: 'bandit',
+    mugshot: 'bandit-mugshot',
     id: 2,
     row: 2,
-    col: 3
+    col: 3,
+    bgp: '-608px -2028px',
+    displayName: 'Bandit',
+    maxHealth: 21
   }
 ];
 export { map, characters };

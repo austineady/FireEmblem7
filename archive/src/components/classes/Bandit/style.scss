@@ -1,0 +1,30 @@
+.bandit {
+  @keyframes bandit {
+    0% {
+      background-position-x: 0px;
+    }
+    10% {
+      background-position-x: -23px;
+    }
+    50% {
+      background-position-x: -46px;
+    }
+    60% {
+      background-position-x: -23px;
+    }
+    100% {
+      background-position-x: 0;
+    }
+  }
+
+  background-image: url('../../../assets/images/animations/enemy/brigand-clean.png');
+  background-position: 0px -230px;
+  height: 16px;
+  width: 16px;
+  position: relative;
+  z-index: 10;
+  animation-name: bandit;
+  animation-duration: 1.7s;
+  animation-timing-function: step-start, step-end;
+  animation-iteration-count: infinite;
+}

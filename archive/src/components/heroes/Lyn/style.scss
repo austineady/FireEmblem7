@@ -1,31 +1,30 @@
 .lyn {
-  @keyframes Loop {
-    from {
+  @keyframes lyn {
+    0% {
       background-position-y: -171px;
     }
-    40% {
+    10% {
       background-position-y: -203px;
     }
     50% {
       background-position-y: -235px;
-
     }
-    70% {
+    60% {
       background-position-y: -203px;
     }
-    to {
+    100% {
       background-position-y: -171px;
     }
   }
 
-  background-image: url('../../assets/images/overworld/overworld-characters-clean.png');
+  background-image: url('../../../assets/images/overworld/overworld-characters-clean.png');
   background-position: -189px -171px;
   height: 16px;
   width: 16px;
   position: relative;
   z-index: 10;
-  animation-name: Loop;
-  animation-duration: 2s;
+  animation-name: lyn;
+  animation-duration: 1.7s;
   animation-timing-function: step-start, step-end;
   animation-iteration-count: infinite;
 }

@@ -3,9 +3,8 @@
 <script>
 import { mapActions } from 'vuex';
 
-import { map, characters } from '../../data/Map_0.js';
-import tile from '../Tile/Tile';
-import lyn from '../Lyn/Lyn.js';
+import { map, characters } from '@/data/Map_0.js';
+import tile from '@/components/core/Tile';
 
 export default {
   name: 'grid',
@@ -13,8 +12,7 @@ export default {
     return {
       map: map,
       totalRows: 10,
-      totalCols: 15,
-      lyn: lyn
+      totalCols: 15
     }
   },
   components: {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Game from '@/components/Game/Game'
+import Game from '@/components/core/Game'
 
 Vue.use(Router)
 

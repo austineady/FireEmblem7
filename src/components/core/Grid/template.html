@@ -1,12 +1,16 @@
-<table id="grid" tabindex=0>
+<table id="grid">
   <tr class="row" v-for="(row, idx) in map">
     <Tile
+    class="col"
     v-for="(col, index) in row"
     v-bind:id="col.tid"
-    v-bind:class="lyn.row === idx && lyn.col === index ? 'lyn col' : 'col'"
-    v-bind:char="col.char"
     v-bind:ter="col.ter"
     v-bind:key="col.tid"
+    v-bind:char="col.char"
+    v-bind:row="idx"
+    v-bind:col="index"
+    v-bind:movetile="col.moveTile"
+    v-bind:atktile="col.atkTile"
     ></Tile>
   </tr>
 </table>
