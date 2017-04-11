@@ -21,6 +21,12 @@ export default {
     },
     map: function() {
       return this.$store.state.map;
+    },
+    playerTurn() {
+      return this.$store.state.playerTurn;
+    },
+    menuActive() {
+      return this.$store.state.menuActive;
     }
   },
   mounted: function() {

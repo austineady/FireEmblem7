@@ -1,0 +1,34 @@
+#user-menu {
+  background-color: #595bbd;
+  border: 1px solid white;
+  font-size: 9px;
+  width: 50px;
+  height: 90px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 200;
+  color: white;
+}
+
+.option {
+  line-height: 1.2;
+  margin: 2px 0;
+  width: 90%;
+  margin: 0 auto;
+  outline: none;
+
+  &:focus {
+    background-color: #7974ed;
+  }
+
+  &.active {
+    background-color: #7974ed;
+  }
+}
+
+.option-list {
+  padding: 3px 0 0;
+  line-height: 1;
+  margin: 0;
+}

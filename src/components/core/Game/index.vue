@@ -6,6 +6,8 @@ import Grid from '@/components/core/Grid';
 
 import Hud from '@/components/ui/Hud';
 import TileInfo from '@/components/ui/TileInfo';
+import UserMenu from '@/components/ui/UserMenu';
+import Display from '@/components/ui/Display';
 
 export default {
   name: 'Game',
@@ -14,7 +16,7 @@ export default {
       grid: Grid
     }
   },
-  props: ['char', 'selected', 'tile', 'map'],
+  props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive'],
   mounted: function() {
     var self = this;
     document.addEventListener('keydown', function(e) {
@@ -27,7 +29,9 @@ export default {
   components: {
     'Grid': Grid,
     'Hud': Hud,
-    'TileInfo': TileInfo
+    'TileInfo': TileInfo,
+    'UserMenu': UserMenu,
+    'Display': Display
   }
 }
 </script>

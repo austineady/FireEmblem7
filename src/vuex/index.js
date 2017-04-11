@@ -17,7 +17,15 @@ export default new Vuex.Store({
     coords: [8, 13],
     moveList: [],
     map: Map,
-    moveMap: []
+    moveMap: [],
+    menuActive: false,
+    options: ['Attack', 'Rescue', 'Item', 'Trade', 'Wait'],
+    charList: [1],
+    enemyList: [2],
+    charQue: [1],
+    enemyQue: [2],
+    playerTurn: true,
+    optsIndex: 0
   },
   mutations: {
     // main move mutation
@@ -28,6 +36,7 @@ export default new Vuex.Store({
       newTile.selected = true;
       state.coords = arg;
       state.selectedChar = newTile.char !== null && state.activeChar === null ? newTile.char : null;
+      state.selectedChar = state.selectedChar !== null && state.charQue.indexOf(state.selectedChar.id) > -1 ? state.selectedChar : null;
       state.activeTile = newTile;
     },
     MOVE_CHAR(state) {
@@ -68,6 +77,32 @@ export default new Vuex.Store({
     RESET_TILE(state, tile) {
       state.map[tile[1]][tile[0]].moveTile = false;
       state.map[tile[1]][tile[0]].atkTile = false;
+    },
+    ACTIVATE_MENU(state) {
+      state.menuActive = true;
+    },
+    DEACTIVATE_MENU(state) {
+      state.menuActive = false;
+    },
+    END_CHAR_TURN(state) {
+      // remove char from char que
+      state.charQue = state.charQue.filter(function(char) {
+        if(char !== state.activeChar.id) {
+          return char;
+        }
+      })
+    },
+    START_ENEMY_PHASE(state) {
+      state.playerTurn = false;
+    },
+    START_PLAYER_PHASE(state) {
+      // reset player que
+      state.charQue = state.charList.slice(0);
+      // start player turn over
+      state.playerTurn = true;
+    },
+    SET_OPTS_INDEX(state, arg) {
+      state.optsIndex = arg;
     }
   },
   getters: {

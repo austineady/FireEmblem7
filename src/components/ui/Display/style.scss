@@ -1,0 +1,59 @@
+#display {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 300;
+}
+
+.display-section {
+  height: 32%;
+  width: 100%;
+  display: block;
+  background-color: rgba(0, 0, 0, .6);
+  @keyframes animIn {
+    from {
+      opacity: .3;
+      transform: translateX(-200%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(200%);
+    }
+  }
+  animation-name: animIn;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.display-text {
+  padding: 8% 0;
+  background-color: transparent;
+  text-align: center;
+  color: rgba(28, 69, 164, 1.00);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 white;
+
+  @keyframes animLeft {
+    from {
+      transform: translateX(200%);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-200%);
+    }
+  }
+  animation-name: animLeft;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
