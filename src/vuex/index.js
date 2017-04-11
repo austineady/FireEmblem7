@@ -16,16 +16,20 @@ export default new Vuex.Store({
     activeTile: Map[8][13],
     coords: [8, 13],
     moveList: [],
+    rescueList: [],
+    atkList: [],
     map: Map,
     moveMap: [],
+    atkMap: [],
     menuActive: false,
-    options: ['Attack', 'Rescue', 'Item', 'Trade', 'Wait'],
+    options: ['Item', 'Wait'],
+    playerTurn: true,
+    optsIndex: 0,
     charList: [1],
     enemyList: [2],
     charQue: [1],
     enemyQue: [2],
-    playerTurn: true,
-    optsIndex: 0
+    showUI: true
   },
   mutations: {
     // main move mutation
@@ -35,8 +39,7 @@ export default new Vuex.Store({
       oldTile.selected = false;
       newTile.selected = true;
       state.coords = arg;
-      state.selectedChar = newTile.char !== null && state.activeChar === null ? newTile.char : null;
-      state.selectedChar = state.selectedChar !== null && state.charQue.indexOf(state.selectedChar.id) > -1 ? state.selectedChar : null;
+      state.selectedChar = newTile.char !== null ? newTile.char : null;
       state.activeTile = newTile;
     },
     MOVE_CHAR(state) {
@@ -68,15 +71,21 @@ export default new Vuex.Store({
     SET_MOVE_MAP(state, map) {
       state.moveMap = map;
     },
+    SET_LOCAL_ATK_TILE(state, tile) {
+      state.map[tile[1]][tile[0]].atkTile = true;
+    },
     SET_MOVE_TILE(state, tile) {
       state.map[tile[1]][tile[0]].moveTile = true;
     },
     SET_ATK_TILE(state, tile) {
       state.map[tile[1]][tile[0]].atkTile = true;
+      state.atkMap.push(tile);
     },
     RESET_TILE(state, tile) {
-      state.map[tile[1]][tile[0]].moveTile = false;
-      state.map[tile[1]][tile[0]].atkTile = false;
+      if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
+        state.map[tile[1]][tile[0]].moveTile = false;
+        state.map[tile[1]][tile[0]].atkTile = false;
+      }
     },
     ACTIVATE_MENU(state) {
       state.menuActive = true;
@@ -91,6 +100,9 @@ export default new Vuex.Store({
           return char;
         }
       })
+      state.moveMap = [];
+      state.atkMap = [];
+      state.moveList = [];
     },
     START_ENEMY_PHASE(state) {
       state.playerTurn = false;
@@ -103,6 +115,15 @@ export default new Vuex.Store({
     },
     SET_OPTS_INDEX(state, arg) {
       state.optsIndex = arg;
+    },
+    ADD_ATTACK_OPTION(state) {
+      state.options.splice(0, 0, 'Attack');
+    },
+    ADD_RESCUE_OPTION(state) {
+      state.options.splice(1, 0, 'Rescue');
+    },
+    ADD_TRADE_OPTION(state) {
+      state.options.splice(3, 0, 'Trade');
     }
   },
   getters: {
@@ -120,6 +141,30 @@ export default new Vuex.Store({
     },
     isCharSelected(state) {
       return state.selectedChar;
+    },
+    actionList(state) {
+      if(state.activeChar !== null) {
+        var attackable = false;
+        // Container
+        var actionList = [];
+        // Tile Top
+        var tt = [state.coords[1], state.coords[0] - 1];
+        // Tile Bottom
+        var tb = [state.coords[1], state.coords[0] + 1];
+        // Tile Left
+        var tl = [state.coords[1] - 1, state.coords[0]];
+        // Tile Right
+        var tr = [state.coords[1] + 1, state.coords[0]];
+        [tt, tb, tl, tr].forEach(function(tile) {
+          if(state.map[tile[1]][tile[0]].char !== null && state.map[tile[1]][tile[0]].char.type === 'enemy') {
+            attackable = true;
+          }
+          actionList.push(tile);
+          return;
+        })
+        actionList = attackable ? actionList : [];
+        return actionList;
+      }
     }
   },
   actions: actions,

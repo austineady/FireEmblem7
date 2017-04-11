@@ -78,7 +78,7 @@ export default {
     mvMatrix = mvMatrix.filter(function(item) {
       if(map[item[1]] !== undefined && map[item[1]][item[0]] !== undefined && map[item[1]][item[0]].ter.collide === true) {
         atkMatrix.push(item);
-      } else {
+      } else if(map[item[1]][item[0]].char === null) {
         return item;
       }
     })

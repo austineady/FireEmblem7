@@ -1,5 +1,5 @@
 <template>
-  <div id="tile-info" v-if="tile.ter">
+  <div id="tile-info" v-if="tile.ter && active">
     <h5 class="tile-header">
       {{ tile.ter.type }}
     </h5>
@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'TileInfo',
-  props: ['tile']
+  props: ['tile', 'active']
 }
 </script>
 

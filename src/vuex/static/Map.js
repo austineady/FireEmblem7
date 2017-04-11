@@ -69,7 +69,69 @@ function Map() {
         col: 13,
         bgp: '-352px -348px',
         displayName: 'Lyn',
-        maxHealth: 21
+        type: 'hero',
+        maxHealth: 16,
+        level: 1,
+        stats: {
+          hp: {
+            val: 16,
+            growth: 0.7,
+            max: 60
+          },
+          pow: {
+            val: 4,
+            growth: 0.4,
+            max: 24
+          },
+          skl: {
+            val: 7,
+            growth: 0.6,
+            max: 29
+          },
+          spd: {
+            val: 9,
+            growth: 0.6,
+            max: 30
+          },
+          luc: {
+            val: 5,
+            growth: 0.55,
+            max: 30
+          },
+          def: {
+            val: 2,
+            growth: 0.2,
+            max: 22
+          },
+          res: {
+            val: 0,
+            growth: 0.3,
+            max: 22
+          },
+          mov: {
+            val: 5,
+            growth: 0
+          },
+          con: {
+            val: 5,
+            growth: 0
+          },
+          aid: {
+            val: 4,
+            growth: 0
+          }
+        },
+        promotion: {
+          hp: 3,
+          pow: 2,
+          skl: 2,
+          luc: 0,
+          def: 3,
+          res: 5,
+          mov: 1,
+          con: 1,
+          aid: 1
+        }
       },
       {
         class: 'bandit',
@@ -79,6 +141,7 @@ function Map() {
         col: 3,
         bgp: '-608px -2028px',
         displayName: 'Bandit',
+        type: 'enemy',
         maxHealth: 21
       }
     ]
@@ -107,6 +170,7 @@ function Map() {
       char.health = char.maxHealth;
       char.healthDiff = (char.health / char.maxHealth) * 100 + '%';
       newMap[char.row][char.col].char = char;
+      newMap[char.row][char.col].collide = true;
     })
   }
 

@@ -17,6 +17,18 @@ export default {
     }
   },
   props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive'],
+  computed: {
+    uiMove() {
+      if(this.$store.state.coords[0] < 5) {
+        return 'move-ui';
+      } else {
+        return ''
+      }
+    },
+    showUI() {
+      return this.$store.state.showUI;
+    }
+  },
   mounted: function() {
     var self = this;
     document.addEventListener('keydown', function(e) {

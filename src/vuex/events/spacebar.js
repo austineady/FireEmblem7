@@ -9,34 +9,32 @@ export default function handleSpacebar(ctx) {
       // Get character move map
       var moveMap = tools.calculateMove(ctx.state.coords, ctx.state.map);
       ctx.commit('SET_MOVE_MAP', moveMap);
-      // Register map
-      moveMap[0].forEach(function(tile) {
-        if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-          ctx.commit('SET_MOVE_TILE', tile);
-        }
-      })
-      moveMap[1].forEach(function(tile) {
-        if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-          ctx.commit('SET_ATK_TILE', tile);
-        }
-      })
-    } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null) {
+      ctx.dispatch('displayMoveMap', moveMap);
+    } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null && ctx.getters.actionList.length === 0) {
       // character position move
       if(ctx.state.activeTile.moveTile === true) {
         ctx.commit('MOVE_CHAR');
+        ctx.dispatch('removeSpecialTiles');
         // Set character as active
         ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
+        ctx.dispatch('getOptions');
         // Active User Menu
         ctx.commit('ACTIVATE_MENU');
       }
-    } else if(ctx.state.selectedChar !== null && ctx.state.activeChar !== null) {
+    } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null && ctx.getters.actionList.length > 0) {
+      // character position move
+      if(ctx.state.activeTile.moveTile === true) {
+        ctx.commit('MOVE_CHAR');
+        ctx.dispatch('removeSpecialTiles');
+        // Set character as active
+        ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
+        ctx.dispatch('getOptions');
+        // Active User Menu
+        ctx.commit('ACTIVATE_MENU');
+      }
+    } else if(ctx.state.selectedChar.id === ctx.state.activeChar.id) {
       // remove move map and active char
-      ctx.state.moveMap[0].forEach(function(tile) {
-        ctx.commit('RESET_TILE', tile);
-      })
-      ctx.state.moveMap[1].forEach(function(tile) {
-        ctx.commit('RESET_TILE', tile);
-      })
+      ctx.dispatch('removeSpecialTiles');
       ctx.commit('RESET_ACTIVE_CHAR');
     }
   }

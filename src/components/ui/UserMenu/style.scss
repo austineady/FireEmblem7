@@ -1,22 +1,22 @@
 #user-menu {
   background-color: #595bbd;
   border: 1px solid white;
-  font-size: 9px;
-  width: 50px;
-  height: 90px;
-  position: absolute;
   bottom: 5px;
-  right: 5px;
-  z-index: 200;
   color: white;
+  font-size: 9px;
+  max-height: 70px;
+  position: absolute;
+  right: 5px;
+  width: 50px;
+  z-index: 200;
 }
 
 .option {
   line-height: 1.2;
-  margin: 2px 0;
-  width: 90%;
-  margin: 0 auto;
+  margin: 1px auto;
   outline: none;
+  padding: 0 2px;
+  width: 80%;
 
   &:focus {
     background-color: #7974ed;
@@ -28,7 +28,7 @@
 }
 
 .option-list {
-  padding: 3px 0 0;
   line-height: 1;
   margin: 0;
+  padding: 2px;
 }

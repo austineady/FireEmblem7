@@ -3,56 +3,59 @@ import handleSpacebar from './events/spacebar.js';
 
 export default {
   handleMove(ctx, e) {
-    var newCoords;
     var self = this;
     if(ctx.state.menuActive) {
+      // Menu is active
       var allOpts = [].slice.call(document.querySelectorAll('.option'));
       ctx.dispatch('removeActiveClasses');
-    }
-    if(e.keyCode === 38) {
-      // Move Up
-      if(!ctx.state.menuActive) {
-        // Menu is not active
-        newCoords = [e.coords[0] - 1 >= 0 ? e.coords[0] - 1 : e.coords[0], e.coords[1]];
-        ctx.commit('MOVE', newCoords);
-      } else {
-        ctx.dispatch('removeActiveClasses');
-        ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex - 1 >= 0 ? ctx.state.optsIndex - 1 : ctx.state.options.length - 1);
-        allOpts[ctx.state.optsIndex].classList.add('active');
+      switch(e.keyCode) {
+        case 38:
+          // Move Up
+          ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex - 1 >= 0 ? ctx.state.optsIndex - 1 : ctx.state.options.length - 1);
+          allOpts[ctx.state.optsIndex].classList.add('active');
+          break;
+        case 40:
+          // Move Down
+          ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex + 1 < ctx.state.options.length ? ctx.state.optsIndex + 1 : 0);
+          allOpts[ctx.state.optsIndex].classList.add('active');
+          break;
+        case 32:
+          // Spacebar
+          ctx.dispatch('handleOptions');
+          break;
       }
-    } else if(e.keyCode === 40) {
-      // move down
-      if(!ctx.state.menuActive) {
-        // Menu inactive
-        newCoords = [e.coords[0] + 1 <= 10 ? e.coords[0] + 1 : e.coords[0], e.coords[1]];
-        ctx.commit('MOVE', newCoords);
-      } else {
-        ctx.dispatch('removeActiveClasses', allOpts);
-        ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex + 1 < ctx.state.options.length ? ctx.state.optsIndex + 1 : 0);
-        allOpts[ctx.state.optsIndex].classList.add('active');
-      }
-    } else if(e.keyCode === 39) {
-      // move right
-      if(!ctx.state.menuActive) {
-        newCoords = [e.coords[0], e.coords[1] + 1 <= 15 ? e.coords[1] + 1 : e.coords[1]];
-        ctx.commit('MOVE', newCoords);
-      }
-    } else if(e.keyCode === 37) {
-      // move left
-      if(!ctx.state.menuActive) {
-        newCoords = [e.coords[0], e.coords[1] - 1 >= 0 ? e.coords[1] - 1 : e.coords[1]];
-        ctx.commit('MOVE', newCoords);
-      }
-    } else if(e.keyCode === 32) {
-      // spacebar
-      if(!ctx.state.menuActive) {
-        handleSpacebar(ctx);
-      } else {
-        ctx.dispatch('handleOptions');
+    } else {
+      // Menu is not active
+      var newCoords;
+      switch(e.keyCode) {
+        case 38:
+          // Move Up
+          newCoords = [e.coords[0] - 1 >= 0 ? e.coords[0] - 1 : e.coords[0], e.coords[1]];
+          ctx.commit('MOVE', newCoords);
+          break;
+        case 40:
+          // Move Down
+          newCoords = [e.coords[0] + 1 <= 10 ? e.coords[0] + 1 : e.coords[0], e.coords[1]];
+          ctx.commit('MOVE', newCoords);
+          break;
+        case 39:
+          // Move Right
+          newCoords = [e.coords[0], e.coords[1] + 1 <= 14 ? e.coords[1] + 1 : e.coords[1]];
+          ctx.commit('MOVE', newCoords);
+          break;
+        case 37:
+          // Move Left
+          newCoords = [e.coords[0], e.coords[1] - 1 >= 0 ? e.coords[1] - 1 : e.coords[1]];
+          ctx.commit('MOVE', newCoords);
+          break;
+        case 32:
+          // Spacebar
+          handleSpacebar(ctx);
+          break;
       }
     }
   },
-  removeActiveClasses(ctx, allOpts) {
+  removeActiveClasses(ctx) {
     [].slice.call(document.querySelectorAll('.option')).forEach(function(option) {
       if(option.classList) {
         option.classList.remove('active');
@@ -63,10 +66,10 @@ export default {
     });
   },
   handleOptions(ctx) {
-    var self = this;
     switch(ctx.state.options[ctx.state.optsIndex]) {
       case 'Attack':
         console.log('Attack Chosen');
+        ctx.dispatch('setLocalAttackTiles');
         break;
       case 'Rescue':
         console.log('Rescue Chosen');
@@ -123,5 +126,45 @@ export default {
   startEnemyActions(ctx) {
     // init enemy AI
     ctx.commit('START_PLAYER_PHASE');
+  },
+  removeSpecialTiles(ctx) {
+    // remove move map and active char
+    ctx.state.moveMap[0].forEach(function(tile) {
+      ctx.commit('RESET_TILE', tile);
+    })
+    ctx.state.moveMap[1].forEach(function(tile) {
+      ctx.commit('RESET_TILE', tile);
+    })
+  },
+  displayMoveMap(ctx, moveMap) {
+    // Register map
+    moveMap[0].forEach(function(tile) {
+      if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
+        ctx.commit('SET_MOVE_TILE', tile);
+      }
+    })
+    moveMap[1].forEach(function(tile) {
+      if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
+        ctx.commit('SET_ATK_TILE', tile);
+      }
+    })
+  },
+  getOptions(ctx) {
+    // Looking for two things
+    // if enemies are close enough to attack
+    if(ctx.getters.actionList.length > 0) {
+      ctx.commit('ADD_ATTACK_OPTION');
+    }
+    // if heroes are close enough to rescue/trade
+    // if(ctx.getters.actionList[1] > 0) {
+    //   ctx.commit('ADD_RESCUE_OPTION');
+    //   ctx.commit('ADD_TRADE_OPTION');
+    // }
+  },
+  setLocalAttackTiles(ctx) {
+    ctx.getters.actionList.forEach(function(tile) {
+      ctx.commit('SET_LOCAL_ATK_TILE', tile);
+    })
+    ctx.commit('DEACTIVATE_MENU');
   }
 }

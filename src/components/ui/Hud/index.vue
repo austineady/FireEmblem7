@@ -1,5 +1,5 @@
 <template>
-  <div id="hud" v-if="char">
+  <div id="hud" v-if="char && active">
     <div id="hud-mugshot" v-bind:class="char.mugshot"></div>
     <div id="hud-info">
       <h6 class="hud-name">
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'Hud',
-  props: ['char']
+  props: ['char', 'active']
 }
 </script>
 
