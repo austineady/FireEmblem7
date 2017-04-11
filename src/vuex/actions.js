@@ -32,14 +32,14 @@ export default {
         allOpts[ctx.state.optsIndex].classList.add('active');
       }
     } else if(e.keyCode === 39) {
+      // move right
       if(!ctx.state.menuActive) {
-        // move right
         newCoords = [e.coords[0], e.coords[1] + 1 <= 15 ? e.coords[1] + 1 : e.coords[1]];
         ctx.commit('MOVE', newCoords);
       }
     } else if(e.keyCode === 37) {
+      // move left
       if(!ctx.state.menuActive) {
-        // move left
         newCoords = [e.coords[0], e.coords[1] - 1 >= 0 ? e.coords[1] - 1 : e.coords[1]];
         ctx.commit('MOVE', newCoords);
       }

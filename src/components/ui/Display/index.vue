@@ -1,5 +1,5 @@
 <template>
-  <div id="display" height="height">
+  <div id="display" :height="height">
     <div class="display-section" v-if="playerturn"></div>
     <div class="display-text" v-if="playerturn">
         Player Phase
