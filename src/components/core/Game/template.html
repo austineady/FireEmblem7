@@ -1,5 +1,5 @@
 <div id="game" v-bind:class="uiMove">
-  <Grid :selected="selected" :map="map"></Grid>
+  <Grid :selected="selected" :map="map" :moving="moving"></Grid>
   <Hud :char="char" :active="showUI"></Hud>
   <TileInfo :tile="tile" :active="showUI"></TileInfo>
   <UserMenu :menuactive="menuactive"></UserMenu>

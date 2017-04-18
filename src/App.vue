@@ -27,6 +27,9 @@ export default {
     },
     menuActive() {
       return this.$store.state.menuActive;
+    },
+    moving() {
+      return this.$store.state.moving;
     }
   },
   mounted: function() {

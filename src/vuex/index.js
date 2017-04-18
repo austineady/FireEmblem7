@@ -5,6 +5,7 @@ import tools from '@/tools/tools.js';
 import Map from './static/Map.js';
 import game from './store/game';
 import actions from './actions.js';
+import battle from './store/battle';
 // import map from './store/map';
 
 Vue.use(Vuex);
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     rescueList: [],
     atkList: [],
     map: Map,
+    mapMem: Map,
     moveMap: [],
     atkMap: [],
     menuActive: false,
@@ -29,7 +31,8 @@ export default new Vuex.Store({
     enemyList: [2],
     charQue: [1],
     enemyQue: [2],
-    showUI: true
+    showUI: true,
+    moving: false
   },
   mutations: {
     // main move mutation
@@ -72,14 +75,21 @@ export default new Vuex.Store({
       state.moveMap = map;
     },
     SET_LOCAL_ATK_TILE(state, tile) {
+      state.moving = true;
       state.map[tile[1]][tile[0]].atkTile = true;
     },
-    SET_MOVE_TILE(state, tile) {
-      state.map[tile[1]][tile[0]].moveTile = true;
-    },
-    SET_ATK_TILE(state, tile) {
-      state.map[tile[1]][tile[0]].atkTile = true;
-      state.atkMap.push(tile);
+    SET_MOVE_TILES(state, map) {
+      map[0].forEach((tile) => {
+        if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
+          state.map[tile[1]][tile[0]].moveTile = true;
+        }
+      })
+      map[1].forEach((tile) => {
+        if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
+          state.map[tile[1]][tile[0]].atkTile = true;
+          state.atkMap.push(tile);
+        }
+      })
     },
     RESET_TILE(state, tile) {
       if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
@@ -124,6 +134,21 @@ export default new Vuex.Store({
     },
     ADD_TRADE_OPTION(state) {
       state.options.splice(3, 0, 'Trade');
+    },
+    SET_ATTACK_LIST(state, arg) {
+      state.atkList = arg;
+    },
+    BEGIN_MOVE(state) {
+      state.moving = true;
+    },
+    END_MOVE(state) {
+      state.moving = false;
+      state.map.forEach((row) => {
+        row.forEach((col) => {
+          col.moveTile = false;
+          col.atkTile = false;
+        })
+      })
     }
   },
   getters: {

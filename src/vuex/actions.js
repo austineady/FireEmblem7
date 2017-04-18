@@ -104,12 +104,7 @@ export default {
   },
   endCharTurn(ctx) {
     // remove move map and active char
-    ctx.state.moveMap[0].forEach(function(tile) {
-      ctx.commit('RESET_TILE', tile);
-    })
-    ctx.state.moveMap[1].forEach(function(tile) {
-      ctx.commit('RESET_TILE', tile);
-    })
+    ctx.commit('END_MOVE');
     // remove char from char que
     ctx.commit('END_CHAR_TURN');
     // reset activeChar
@@ -128,32 +123,18 @@ export default {
     ctx.commit('START_PLAYER_PHASE');
   },
   removeSpecialTiles(ctx) {
-    // remove move map and active char
-    ctx.state.moveMap[0].forEach(function(tile) {
-      ctx.commit('RESET_TILE', tile);
-    })
-    ctx.state.moveMap[1].forEach(function(tile) {
-      ctx.commit('RESET_TILE', tile);
-    })
+    ctx.commit('END_MOVE');
   },
   displayMoveMap(ctx, moveMap) {
     // Register map
-    moveMap[0].forEach(function(tile) {
-      if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-        ctx.commit('SET_MOVE_TILE', tile);
-      }
-    })
-    moveMap[1].forEach(function(tile) {
-      if(ctx.state.map[tile[1]] !== undefined && ctx.state.map[tile[1]][tile[0]] !== undefined) {
-        ctx.commit('SET_ATK_TILE', tile);
-      }
-    })
+    ctx.commit('SET_MOVE_TILES', moveMap);
   },
   getOptions(ctx) {
     // Looking for two things
     // if enemies are close enough to attack
     if(ctx.getters.actionList.length > 0) {
       ctx.commit('ADD_ATTACK_OPTION');
+      ctx.commit('SET_ATTACK_LIST', ctx.getters.actionList);
     }
     // if heroes are close enough to rescue/trade
     // if(ctx.getters.actionList[1] > 0) {
@@ -165,6 +146,7 @@ export default {
     ctx.getters.actionList.forEach(function(tile) {
       ctx.commit('SET_LOCAL_ATK_TILE', tile);
     })
+    ctx.commit('SET_ATTACK_LIST', ctx.getters.actionList);
     ctx.commit('DEACTIVATE_MENU');
   }
 }

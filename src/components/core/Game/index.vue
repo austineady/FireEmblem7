@@ -16,7 +16,7 @@ export default {
       grid: Grid
     }
   },
-  props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive'],
+  props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive', 'moving'],
   computed: {
     uiMove() {
       if(this.$store.state.coords[0] < 5) {
