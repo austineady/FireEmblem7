@@ -16,12 +16,9 @@ export default new Vuex.Store({
     selectedChar: Map[8][13].char,
     activeTile: Map[8][13],
     coords: [8, 13],
-    moveList: [],
     rescueList: [],
     atkList: [],
     map: Map,
-    mapMem: Map,
-    moveMap: [],
     atkMap: [],
     menuActive: false,
     options: ['Item', 'Wait'],
@@ -55,10 +52,6 @@ export default new Vuex.Store({
     SET_SELECTED_CHAR(state, char) {
       state.selectedChar = char;
     },
-    // reset selected character
-    RESET_SELECTED_CHAR(state) {
-      state.selectedChar = null;
-    },
     // set an active character (spacebar pressed)
     SET_ACTIVE_CHAR(state, char) {
       state.activeChar = char;
@@ -67,24 +60,18 @@ export default new Vuex.Store({
     RESET_ACTIVE_CHAR(state) {
       state.activeChar = null;
     },
-    SET_ACTIVE_TILE(state, tile) {
-      state.activeTile = tile;
-    },
-    // set move map
-    SET_MOVE_MAP(state, map) {
-      state.moveMap = map;
-    },
     SET_LOCAL_ATK_TILE(state, tile) {
       state.moving = true;
       state.map[tile[1]][tile[0]].atkTile = true;
+      state.atkList.push(tile);
     },
-    SET_MOVE_TILES(state, map) {
-      map[0].forEach((tile) => {
+    SET_MOVE_TILES(state) {
+      state.activeChar.moveMap[0].forEach((tile) => {
         if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
           state.map[tile[1]][tile[0]].moveTile = true;
         }
       })
-      map[1].forEach((tile) => {
+      state.activeChar.moveMap[1].forEach((tile) => {
         if(state.map[tile[1]] !== undefined && state.map[tile[1]][tile[0]] !== undefined) {
           state.map[tile[1]][tile[0]].atkTile = true;
           state.atkMap.push(tile);
@@ -110,9 +97,7 @@ export default new Vuex.Store({
           return char;
         }
       })
-      state.moveMap = [];
       state.atkMap = [];
-      state.moveList = [];
     },
     START_ENEMY_PHASE(state) {
       state.playerTurn = false;
@@ -136,7 +121,7 @@ export default new Vuex.Store({
       state.options.splice(3, 0, 'Trade');
     },
     SET_ATTACK_LIST(state, arg) {
-      state.atkList = arg;
+      state.activeChar.atkList = arg;
     },
     BEGIN_MOVE(state) {
       state.moving = true;
@@ -152,20 +137,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getActiveTile(state) {
-      return state.map[state.coords[0][state.coords[1]]];
-    },
     isValid: function(state, arg) {
       return arg.col !== undefined && arg.row !== undefined && state.map[arg.row] !== undefined && state.map[arg.row][arg.col] !== undefined;
-    },
-    getMap(state) {
-      return state.map;
-    },
-    isCharActive(state) {
-      return state.activeChar;
-    },
-    isCharSelected(state) {
-      return state.selectedChar;
     },
     actionList(state) {
       if(state.activeChar !== null) {
@@ -193,8 +166,5 @@ export default new Vuex.Store({
     }
   },
   actions: actions,
-  modules: {
-    game
-  },
   strict: true
 });

@@ -14,7 +14,7 @@ export default {
 
 <template>
   <td :class="{ movetile: movetile, atktile: atktile }">
-    <Character :class="char.class" v-if="char"></Character>
+    <Character :class="char.class" :char="char" v-if="char"></Character>
     <Selector v-if="selected"></Selector>
   </td>
 </template>

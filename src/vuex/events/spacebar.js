@@ -1,27 +1,25 @@
-import tools from '@/tools/tools.js';
-
 export default function handleSpacebar(ctx) {
   if(!ctx.state.menuActive) {
     // Menu Inactive
     if(ctx.state.selectedChar !== null && ctx.state.charQue.indexOf(ctx.state.selectedChar.id) > -1 && ctx.state.activeChar === null) {
+      // if a char is selected, char hasn't been selected yet, and no char is active
       // Set character as active
       ctx.commit('SET_ACTIVE_CHAR', ctx.state.selectedChar);
       // Get character move map
-      var moveMap = tools.calculateMove(ctx.state.coords, ctx.state.map);
+      // console.log(ctx.state.selectedChar.moveMap);
+      // var moveMap = ctx.state.activeChar.moveMap;
       ctx.commit('BEGIN_MOVE');
-      ctx.commit('SET_MOVE_MAP', moveMap);
-      ctx.dispatch('displayMoveMap', moveMap);
-    } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null && ctx.getters.actionList.length === 0) {
+      ctx.dispatch('displayMoveMap');
+    } else if(ctx.state.activeTile.moveTile === true && ctx.state.selectedChar === null && ctx.state.activeChar !== null && ctx.getters.actionList.length === 0) {
+      // if tile has no char, a char is active, and no enemies are attackable
       // character position move
-      if(ctx.state.activeTile.moveTile === true) {
-        ctx.commit('MOVE_CHAR');
-        ctx.dispatch('removeSpecialTiles');
-        // Set character as active
-        ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
-        ctx.dispatch('getOptions');
-        // Active User Menu
-        ctx.commit('ACTIVATE_MENU');
-      }
+      ctx.commit('MOVE_CHAR');
+      ctx.dispatch('removeSpecialTiles');
+      // select char under selector
+      ctx.commit('SET_SELECTED_CHAR', ctx.state.activeChar);
+      ctx.dispatch('getOptions');
+      // Active User Menu
+      ctx.commit('ACTIVATE_MENU');
     } else if(ctx.state.selectedChar === null && ctx.state.activeChar !== null && ctx.getters.actionList.length > 0) {
       // character position move
       if(ctx.state.activeTile.moveTile === true) {

@@ -87,15 +87,6 @@ export default {
     }
     ctx.commit('SET_OPTS_INDEX', 0);
   },
-  setActiveTile(ctx, tile) {
-    ctx.commit('SET_ACTIVE_TILE', tile);
-  },
-  setSelectedChar(ctx, tile) {
-    ctx.commit('SET_SELECTED_CHAR', tile.char);
-  },
-  resetSelectedChar(ctx, tile) {
-    ctx.commit('RESET_SELECTED_CHAR');
-  },
   setActiveChar(ctx, tile) {
     ctx.commit('SET_ACTIVE_CHAR', tile.char);
   },
@@ -125,9 +116,9 @@ export default {
   removeSpecialTiles(ctx) {
     ctx.commit('END_MOVE');
   },
-  displayMoveMap(ctx, moveMap) {
+  displayMoveMap(ctx) {
     // Register map
-    ctx.commit('SET_MOVE_TILES', moveMap);
+    ctx.commit('SET_MOVE_TILES');
   },
   getOptions(ctx) {
     // Looking for two things
@@ -146,7 +137,6 @@ export default {
     ctx.getters.actionList.forEach(function(tile) {
       ctx.commit('SET_LOCAL_ATK_TILE', tile);
     })
-    ctx.commit('SET_ATTACK_LIST', ctx.getters.actionList);
     ctx.commit('DEACTIVATE_MENU');
   }
 }

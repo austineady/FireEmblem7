@@ -156,7 +156,12 @@ function Map() {
         char: null,
         moveTile: false,
         atkTile: false,
-        selected: false
+        selected: false,
+        moveMap: [],
+        atkList: [],
+        rescueList: [],
+        actionList: [],
+        coords: [index, row]
       };
       newRow.push(baseTile);
       return;

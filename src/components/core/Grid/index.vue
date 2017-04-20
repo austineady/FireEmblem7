@@ -29,7 +29,7 @@ export default {
       return this.$store.state.moving;
     }
   },
-  mounted () {
+  mounted() {
     console.log('Store: ');
     console.log(this.$store);
   },
