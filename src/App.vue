@@ -30,6 +30,9 @@ export default {
     },
     moving() {
       return this.$store.state.moving;
+    },
+    attacking() {
+      return this.$store.state.attacking;
     }
   },
   mounted: function() {

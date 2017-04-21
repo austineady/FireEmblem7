@@ -1,5 +1,5 @@
 export default function handleSpacebar(ctx) {
-  if(!ctx.state.menuActive) {
+  if(!ctx.state.menuActive || !ctx.state.attacking) {
     // Menu Inactive
     if(ctx.state.selectedChar !== null && ctx.state.charQue.indexOf(ctx.state.selectedChar.id) > -1 && ctx.state.activeChar === null) {
       // if a char is selected, char hasn't been selected yet, and no char is active
@@ -37,7 +37,9 @@ export default function handleSpacebar(ctx) {
       ctx.commit('RESET_ACTIVE_CHAR');
     } else if(ctx.state.activeChar !== null && ctx.state.selectedChar !== null && ctx.state.selectedChar.type === 'enemy' && ctx.state.atkList.length > 0 && ctx.state.activeTile.atkTile) {
       // start attack sequence
-      console.log('Start attack');
+      ctx.commit('BEGIN_ATTACK');
     }
+  } else if(ctx.state.attacking) {
+    // weapon selected, show battle compare
   }
 }

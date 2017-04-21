@@ -33,6 +33,7 @@
 // 1.14 Wall
 // 0.1 Cliff
 import Terrain from './terrain.js';
+import Items from './items.js';
 
 function Map() {
   var newMap = [];
@@ -71,6 +72,12 @@ function Map() {
         displayName: 'Lyn',
         type: 'hero',
         maxHealth: 16,
+        images: {
+          mug80: 'background-position: -656px -220px;'
+        },
+        inventory: [
+          1
+        ],
         level: 1,
         stats: {
           hp: {
@@ -172,6 +179,11 @@ function Map() {
 
   if(data.characters.length > 0) {
     data.characters.forEach(function(char) {
+      if(char.inventory !== undefined && char.inventory.length > 0) {
+        char.inventory = char.inventory.map(function(item) {
+          return Items[item.toString()];
+        })
+      }
       char.health = char.maxHealth;
       char.healthDiff = (char.health / char.maxHealth) * 100 + '%';
       newMap[char.row][char.col].char = char;

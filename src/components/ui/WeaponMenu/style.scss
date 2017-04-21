@@ -1,0 +1,73 @@
+#weapon-menu {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 200;
+
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow:
+   -.3px -.3px 0 #000,
+    .3px -.3px 0 #000,
+    -.3px .3px 0 #000,
+     .3px .3px 0 #000;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+#weapon-stats,
+#weapon-list {
+  width: 100px;
+  position: absolute;
+}
+
+.mugshot-80 {
+  width: 80px;
+  height: 80px;
+  background-image: url('../../../assets/images/mugshots/mugshot-conversation-map-clean.png');
+  margin: 0 auto;
+}
+
+.weapon-list {
+  line-height: 1;
+  margin: 0;
+  padding: 2px;
+}
+
+.weapon {
+  display: block;
+  padding: 1px 2px;
+  height: 16px;
+  margin: 0;
+  line-height: 16px;
+  text-align: left;
+
+  .item {
+    margin-right: 3px;
+  }
+
+  .weapon-menu-usage {
+    float: right;
+    margin: 0 1px;
+    color: #8bdbfa;
+  }
+
+  &:focus {
+    background-color: #7974ed;
+  }
+
+  &.active {
+    background-color: #7974ed;
+  }
+}
+
+.weapon-stat {
+  color: #8bdbfa;
+  text-align: right;
+}

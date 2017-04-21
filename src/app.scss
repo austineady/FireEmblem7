@@ -33,6 +33,14 @@ body {
    background-repeat: no-repeat;
 }
 
+img, div, section {
+  image-rendering: -moz-crisp-edges;         /* Firefox */
+   image-rendering:   -o-crisp-edges;         /* Opera */
+   image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+   image-rendering: crisp-edges;
+   -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
+}
+
 #grid {
   position: relative;
   height: 100%;
@@ -41,4 +49,78 @@ body {
   padding: 0;
   margin: 0;
   border-collapse: collapse;
+}
+
+.ui-menu {
+  background-color: #595bbd;
+  border: 1px solid white;
+  color: white;
+  font-size: 9px;
+}
+
+.ui-top-right {
+  right: 5px;
+  top: 5px;
+  position: absolute;
+  z-index: 200;
+}
+
+.ui-bottom-right {
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
+  z-index: 200;
+}
+
+.ui-top-left {
+  top: 5px;
+  left: 5px;
+  position: absolute;
+  z-index: 200;
+}
+
+.ui-bottom-left {
+  bottom: 5px;
+  left: 5px;
+  position: absolute;
+  z-index: 200;
+}
+
+.center {
+  text-align: center;
+}
+
+.clearfix {
+  clear: both;
+  overflow: hidden;
+}
+
+.half {
+  float: left;
+  width: 45%;
+  margin: 0;
+  padding: 2px;
+  vertical-align: top;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.item {
+  background-image: url('./assets/images/items/item-icons-clean.png');
+  height: 16px;
+  width: 16px;
 }

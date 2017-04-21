@@ -29,7 +29,8 @@ export default new Vuex.Store({
     charQue: [1],
     enemyQue: [2],
     showUI: true,
-    moving: false
+    moving: false,
+    attacking: false
   },
   mutations: {
     // main move mutation
@@ -90,15 +91,6 @@ export default new Vuex.Store({
     DEACTIVATE_MENU(state) {
       state.menuActive = false;
     },
-    END_CHAR_TURN(state) {
-      // remove char from char que
-      state.charQue = state.charQue.filter(function(char) {
-        if(char !== state.activeChar.id) {
-          return char;
-        }
-      })
-      state.atkMap = [];
-    },
     START_ENEMY_PHASE(state) {
       state.playerTurn = false;
     },
@@ -110,6 +102,9 @@ export default new Vuex.Store({
     },
     SET_OPTS_INDEX(state, arg) {
       state.optsIndex = arg;
+    },
+    RESET_OPTS_INDEX(state) {
+      state.optsIndex = 0;
     },
     ADD_ATTACK_OPTION(state) {
       state.options.splice(0, 0, 'Attack');
@@ -126,6 +121,9 @@ export default new Vuex.Store({
     BEGIN_MOVE(state) {
       state.moving = true;
     },
+    BEGIN_ATTACK(state) {
+      state.attacking = true;
+    },
     END_MOVE(state) {
       state.moving = false;
       state.map.forEach((row) => {
@@ -134,6 +132,15 @@ export default new Vuex.Store({
           col.atkTile = false;
         })
       })
+    },
+    END_CHAR_TURN(state) {
+      // remove char from char que
+      state.charQue = state.charQue.filter(function(char) {
+        if(char !== state.activeChar.id) {
+          return char;
+        }
+      })
+      state.atkMap = [];
     }
   },
   getters: {

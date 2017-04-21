@@ -24,6 +24,28 @@ export default {
           ctx.dispatch('handleOptions');
           break;
       }
+    } else if(ctx.state.attacking) {
+      // Weapon Menu is active
+      const allWeapons = [].slice.call(document.querySelectorAll('.weapon'));
+      if(allWeapons.length > 1) {
+        ctx.commit('RESET_OPTS_INDEX');
+        switch(e.keyCode) {
+          case 38:
+            // Move Up
+            ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex - 1 >= 0 ? ctx.state.optsIndex - 1 : ctx.state.options.length - 1);
+            allWeapons[ctx.state.optsIndex].classList.add('active');
+            break;
+          case 40:
+            // Move Down
+            ctx.commit('SET_OPTS_INDEX', ctx.state.optsIndex + 1 < ctx.state.options.length ? ctx.state.optsIndex + 1 : 0);
+            allWeapons[ctx.state.optsIndex].classList.add('active');
+            break;
+          case 32:
+            // Spacebar
+            ctx.dispatch('handleOptions');
+            break;
+        }
+      }
     } else {
       // Menu is not active
       var newCoords;

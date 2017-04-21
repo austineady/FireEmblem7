@@ -8,6 +8,7 @@ import Hud from '@/components/ui/Hud';
 import TileInfo from '@/components/ui/TileInfo';
 import UserMenu from '@/components/ui/UserMenu';
 import Display from '@/components/ui/Display';
+import WeaponMenu from '@/components/ui/WeaponMenu';
 
 export default {
   name: 'Game',
@@ -16,7 +17,7 @@ export default {
       grid: Grid
     }
   },
-  props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive', 'moving'],
+  props: ['char', 'selected', 'tile', 'map', 'playerturn', 'menuactive', 'moving', 'attacking'],
   computed: {
     uiMove() {
       if(this.$store.state.coords[0] < 5) {
@@ -43,7 +44,8 @@ export default {
     'Hud': Hud,
     'TileInfo': TileInfo,
     'UserMenu': UserMenu,
-    'Display': Display
+    'Display': Display,
+    'WeaponMenu': WeaponMenu
   }
 }
 </script>
