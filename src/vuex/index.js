@@ -90,6 +90,7 @@ export default new Vuex.Store({
     },
     DEACTIVATE_MENU(state) {
       state.menuActive = false;
+      state.optsIndex = 0;
     },
     START_ENEMY_PHASE(state) {
       state.playerTurn = false;

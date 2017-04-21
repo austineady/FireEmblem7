@@ -41,5 +41,6 @@ export default function handleSpacebar(ctx) {
     }
   } else if(ctx.state.attacking) {
     // weapon selected, show battle compare
+
   }
 }

@@ -1,8 +1,8 @@
 <template>
-  <div id="weapon-menu" v-show="attacking">
+  <div id="weapon-menu" v-if="attacking">
     <div id="weapon-list" class="ui-menu ui-top-left">
       <ul class="option-list weapon-list">
-        <li class="weapon clearfix active" v-for="weapon in weapons">
+        <li class="weapon clearfix" v-for="weapon in weapons">
           <div class="left item" :style="weapon.bg"></div>
           <span>{{ weapon.name }}</span>
           <span class="weapon-menu-usage">{{ weapon.usage }}</span>
@@ -52,11 +52,20 @@ export default {
       return this.$store.state.activeChar;
     },
     weapons() {
-      return this.$store.state.activeChar.inventory.map((item) => {
-        if(item.type === 'Weapon') {
-          return item;
-        }
-      })
+      if(this.char.inventory !== null) {
+        return this.char.inventory.filter((item) => {
+          if(item.type === 'Weapon') {
+            return item;
+          }
+        })
+      }
+    }
+  },
+  mounted() {
+    if(this.char !== null) {
+      const allWeapons = [].slice.call(document.querySelectorAll('.weapon'));
+      console.log(allWeapons);
+      allWeapons[0].classList.add('active');
     }
   }
 }

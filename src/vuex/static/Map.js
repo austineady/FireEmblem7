@@ -76,6 +76,7 @@ function Map() {
           mug80: 'background-position: -656px -220px;'
         },
         inventory: [
+          1,
           1
         ],
         level: 1,
