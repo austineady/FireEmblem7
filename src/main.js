@@ -16,24 +16,24 @@ new Vue({
   components: { App }
 })
 
-function update(progress) {
-  // update state
-}
-
-function render() {
-  // update store
-}
-
-function loop() {
-  const ts = Date.now();
-  const progress = ts - lastRender;
-
-  update(progress);
-  render();
-
-  lastRender = ts;
-  window.requestAnimationFrame(loop);
-}
-
-let lastRender = 0;
-window.requestAnimationFrame(loop);
+// function update(progress) {
+//   // update state
+// }
+//
+// function render() {
+//   // update store
+// }
+//
+// function loop() {
+//   const ts = Date.now();
+//   const progress = ts - lastRender;
+//
+//   update(progress);
+//   render();
+//
+//   lastRender = ts;
+//   window.requestAnimationFrame(loop);
+// }
+//
+// let lastRender = 0;
+// window.requestAnimationFrame(loop);

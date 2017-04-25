@@ -1,5 +1,5 @@
 <template>
-  <div id="weapon-menu" v-if="attacking">
+  <div id="weapon-menu" v-if="attacking" tabindex="1">
     <div id="weapon-list" class="ui-menu ui-top-left">
       <ul class="option-list weapon-list">
         <li class="weapon clearfix" v-for="weapon in weapons">
@@ -59,6 +59,9 @@ export default {
           }
         })
       }
+    },
+    menuIndex() {
+      return this.$store.state.optsIndex;
     }
   },
   mounted() {
